@@ -1,47 +1,45 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
+import User from "../models/userModel.js";
 
-export const registerUser =asyncHandler(async (req , res) => {
+// @desc    Register a new user
+// @route   POST /api/users/register
+// @access  Public
+export const registerUser = asyncHandler(async (req, res) => {
+  const { name, username, email, password } = req.body;
 
-  const {name , username , email , password} = req.body;
-
-  if(!name || !username || !email || !password){
+  if (!name || !username || !email || !password) {
     res.status(400);
     throw new Error("Please fill all the fields");
   }
 
-  const userExists = await user.findOne({email});
+  const userExists = await User.findOne({ email });
 
-  
-   if(userExists){
+  if (userExists) {
     res.status(400);
-    throw new Error("User already exists , try signing in");
-   }
+    throw new Error("User already exists, try signing in");
+  }
 
-   const user = await User.create({
+  const user = await User.create({
     name,
     username,
     email,
-    password,
-   });
-
-     if(user){
-  res.status(201).json({
-    success: true,
-    user: {
-      _id: user._id,
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      isAdmin: user.isAdmin,
-    },
-    success: true,
-    message: "User registered successfully",
+    password, // ⚠️ plain text for now (will improve later)
   });
-}
-else{
-  res.status(500);
-  throw new Error("failed to create the user , try again");
-}
 
-
+  if (user) {
+    res.status(201).json({
+      success: true,
+      user: {
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
+      message: "User registered successfully",
+    });
+  } else {
+    res.status(500);
+    throw new Error("Failed to create the user, try again");
+  }
 });
