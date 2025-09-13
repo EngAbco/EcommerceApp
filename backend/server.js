@@ -3,6 +3,7 @@ import "dotenv/config";        // Import dotenv to manage environment variables
 import db from "./config/db.js"; // Import the db connection function
 import colors from "colors";    // Import colors for console text styling
 import userRouter from "./routes/userRoutes.js"; // Import user routes
+import { errorHandler, notfound } from "./middlewares/errors.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -15,6 +16,9 @@ db(); // connect to MongoDB
 
 // Routes
 app.use("/api/users", userRouter);
+
+app.use(notfound);
+app.use(errorHandler);
 
 // Test Route
 app.get("/", (req, res) => {
