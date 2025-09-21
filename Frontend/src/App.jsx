@@ -1,19 +1,24 @@
 import './App.css'
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
+import { Routes, Route } from 'react-router-dom'
+import HomeScreen from "@/components/HomeScreen";  
+import Login from '@/screens/userScreens/login';
+import Layout from '@/screensLayout/userlayout/Layout';
+import Register from '@/screens/userScreens/register';
 
 function App() {
-  
-
   return (
-    <>
-     <Header />
-     <Hero />
-      <h1 className="text-4xl font-bold text-green-500">Frontend Set up</h1>
-      <button className ="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        ADD
-      </button>
-    </>
+    <div>
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+
+        {/* Nested routes under /auth */}
+        <Route path="/auth" element={<Layout />}>
+          <Route path="login" element={<Login />} /> 
+          {/* Notice: no "/" before login */}
+          <Route path="register" element={<Register />} />
+        </Route>
+      </Routes>
+    </div>
   )
 }
 
