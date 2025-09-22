@@ -4,12 +4,20 @@ import HomeScreen from "@/components/HomeScreen";
 import Login from '@/screens/userScreens/login';
 import Layout from '@/screensLayout/userlayout/Layout';
 import Register from '@/screens/userScreens/register';
+import AdminLayout from './screensLayout/adminlayout/adminlayout';
+import AdminDashboard from './screens/adminScreens/Dashboard';
+import AdminProducts from './screens/adminScreens/Adminproducts';
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
+
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+        </Route>
 
         {/* Nested routes under /auth */}
         <Route path="/auth" element={<Layout />}>
