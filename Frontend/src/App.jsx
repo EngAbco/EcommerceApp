@@ -7,6 +7,9 @@ import Register from '@/screens/userScreens/register';
 import AdminLayout from './screensLayout/adminlayout/adminlayout';
 import AdminDashboard from './screens/adminScreens/Dashboard';
 import AdminProducts from './screens/adminScreens/Adminproducts';
+import Listing from './screens/pagesScreens/Listing';
+import Shopinglayout from './screensLayout/pageslayout/Shopinglayout';
+import Shopingproducts from './screens/pagesScreens/Shopingproducts';
 
 function App() {
   return (
@@ -24,6 +27,13 @@ function App() {
           <Route path="login" element={<Login />} /> 
           {/* Notice: no "/" before login */}
           <Route path="register" element={<Register />} />
+        </Route>
+
+         <Route path="/shop" element={<Shopinglayout />}>
+          <Route path="listing" element={<Listing />} /> 
+
+           <Route path="Home" element={<Shopingproducts />} /> 
+       
         </Route>
       </Routes>
     </div>
